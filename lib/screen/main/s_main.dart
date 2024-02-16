@@ -58,7 +58,8 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
                 ),
                 bottomNavigationBar: _buildBottomNavigationBar(context),
               ),
-              FloatingDaangnButton()
+              if(_currentTab != TabItem.chat)
+                FloatingDaangnButton()
             ],
           ),
         ),
@@ -131,6 +132,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
 
   void _changeTab(int index) {
     setState(() {
+      print(index);
       _currentTab = tabs[index];
     });
   }
