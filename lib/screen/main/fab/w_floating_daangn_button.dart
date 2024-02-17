@@ -11,6 +11,7 @@ import '../../../common/widget/animated_width_collapse.dart';
 class FloatingDaangnButton extends ConsumerWidget {
   FloatingDaangnButton({super.key});
 
+  static const height = 100.0;
   final duration = 300.ms;
 
   @override

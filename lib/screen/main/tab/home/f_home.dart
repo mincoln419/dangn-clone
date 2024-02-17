@@ -3,6 +3,7 @@ import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/widget/animated_arrow_up_down.dart';
 import 'package:fast_app_base/common/widget/w_arrow.dart';
 import 'package:fast_app_base/data/post_dummy.dart';
+import 'package:fast_app_base/screen/main/fab/w_floating_daangn_button.dart';
 import 'package:fast_app_base/screen/main/fab/w_floating_daangn_button.riverpod.dart';
 import 'package:fast_app_base/screen/main/tab/home/w_product_post_item.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
   final scrollController = ScrollController();
   String title = "상일동";
   bool isSelected = false;
+  double turns = 0.0;
 
   @override
   void initState() {
@@ -43,16 +45,19 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
           title: PopupMenuButton<String>(
             position: PopupMenuPosition.under,
             onOpened: (){
+              _changeRotation();
               setState(() {
                 isSelected = true;
               });
             },
             onCanceled: (){
+              _changeRotation();
               setState(() {
                 isSelected = false;
               });
             },
             onSelected: (value) {
+              _changeRotation();
               setState(() {
                 isSelected = false;
                 title = value;
@@ -71,13 +76,14 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
                     Text(
                       title,
                     ),
-                    AnimatedArrowUpDown(isSelected),
+                    AnimatedArrowUpDown(isSelected, turns),
                   ],
                 )),
           ),
         ),
         Expanded(
           child: ListView.separated(
+            padding: EdgeInsets.only(bottom: FloatingDaangnButton.height),
             controller: scrollController,
             itemBuilder: (context, index) => ProductPostItem(postList[index]),
             itemCount: postList.length,
@@ -87,5 +93,8 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
         ),
       ],
     );
+  }
+  void _changeRotation() {
+    setState(() => turns += 10.0);
   }
 }

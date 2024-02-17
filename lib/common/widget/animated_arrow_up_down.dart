@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class AnimatedArrowUpDown extends StatefulWidget {
   final bool isSelected;
-  const AnimatedArrowUpDown(this.isSelected, {super.key});
+  final double turns;
+  const AnimatedArrowUpDown(this.isSelected, this.turns, {super.key});
 
   @override
   State<AnimatedArrowUpDown> createState() => _AnimatedArrowUpDownState();
@@ -13,17 +14,13 @@ class AnimatedArrowUpDown extends StatefulWidget {
 class _AnimatedArrowUpDownState extends State<AnimatedArrowUpDown> {
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      firstChild: const Arrow(
-        size: 30,
-        direction: AxisDirection.up,
-      ),
-      secondChild: const Arrow(
-        size: 30,
-        direction: AxisDirection.down,
-      ),
-      crossFadeState: widget.isSelected ? CrossFadeState.showFirst:CrossFadeState.showSecond,
+    return AnimatedRotation(
+      turns: widget.turns,
       duration: 300.ms,
+      child: Arrow(
+        size: 30,
+        direction: widget.isSelected? AxisDirection.up: AxisDirection.down,
+      ),
     );
   }
 }

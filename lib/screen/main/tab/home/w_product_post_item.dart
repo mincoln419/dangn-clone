@@ -4,7 +4,6 @@ import 'package:fast_app_base/entity/post/vo_product_post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-
 class ProductPostItem extends StatelessWidget {
   final ProductPost post;
 
@@ -12,33 +11,57 @@ class ProductPostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: CachedNetworkImage(
-            imageUrl: post.product.images[0],
-            width: 150,
-          ),
-        ),
-        const Width(10),
-        Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            post.content.text.size(17).bold.make(),
-            Row(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: post.product.images[0],
+                width: 150,
+              ),
+            ),
+            const Width(10),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                post.address.shortAddress.text.color(context.appColors.lessImportantColor).make(),
-                '•'.text.make(),
-                timeago.format(post.createdTime, locale: context.locale.languageCode).text.make(),
+                post.content.text.size(17).bold.make(),
+                Row(
+                  children: [
+                    post.address.shortAddress.text
+                        .color(context.appColors.lessImportantColor)
+                        .make(),
+                    '•'.text.make(),
+                    timeago
+                        .format(post.createdTime,
+                            locale: context.locale.languageCode)
+                        .text
+                        .make(),
+                  ],
+                ),
+                post.product.price.toMon().text.bold.make(),
+              ],
+            ))
+          ],
+        ).p(15),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('$basePath/home/post_comment.png'),
+                post.chatCount.text.make(),
+                Image.asset('$basePath/home/post_heart_off.png'),
+                post.likeCount.text.make(),
               ],
             ),
-            post.product.price.toMon().text.bold.make(),
-          ],
-        ))
+          ),
+        )
       ],
-    ).p(15);
+    );
   }
 }
