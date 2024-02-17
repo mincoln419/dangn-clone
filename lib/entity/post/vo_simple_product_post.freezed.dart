@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'vo_product_post.dart';
+part of 'vo_simple_product_post.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,30 +15,32 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ProductPost {
+mixin _$SimpleProductPost {
   User get user => throw _privateConstructorUsedError;
   Product get product => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
   int get chatCount => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
   DateTime get createdTime => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ProductPostCopyWith<ProductPost> get copyWith =>
+  $SimpleProductPostCopyWith<SimpleProductPost> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProductPostCopyWith<$Res> {
-  factory $ProductPostCopyWith(
-          ProductPost value, $Res Function(ProductPost) then) =
-      _$ProductPostCopyWithImpl<$Res, ProductPost>;
+abstract class $SimpleProductPostCopyWith<$Res> {
+  factory $SimpleProductPostCopyWith(
+          SimpleProductPost value, $Res Function(SimpleProductPost) then) =
+      _$SimpleProductPostCopyWithImpl<$Res, SimpleProductPost>;
   @useResult
   $Res call(
       {User user,
       Product product,
-      String content,
+      String title,
+      String description,
       Address address,
       int chatCount,
       int likeCount,
@@ -50,9 +52,9 @@ abstract class $ProductPostCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProductPostCopyWithImpl<$Res, $Val extends ProductPost>
-    implements $ProductPostCopyWith<$Res> {
-  _$ProductPostCopyWithImpl(this._value, this._then);
+class _$SimpleProductPostCopyWithImpl<$Res, $Val extends SimpleProductPost>
+    implements $SimpleProductPostCopyWith<$Res> {
+  _$SimpleProductPostCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -64,7 +66,8 @@ class _$ProductPostCopyWithImpl<$Res, $Val extends ProductPost>
   $Res call({
     Object? user = null,
     Object? product = null,
-    Object? content = null,
+    Object? title = null,
+    Object? description = null,
     Object? address = null,
     Object? chatCount = null,
     Object? likeCount = null,
@@ -79,9 +82,13 @@ class _$ProductPostCopyWithImpl<$Res, $Val extends ProductPost>
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as Product,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       address: null == address
           ? _value.address
@@ -129,7 +136,7 @@ class _$ProductPostCopyWithImpl<$Res, $Val extends ProductPost>
 
 /// @nodoc
 abstract class _$$_ProductPostCopyWith<$Res>
-    implements $ProductPostCopyWith<$Res> {
+    implements $SimpleProductPostCopyWith<$Res> {
   factory _$$_ProductPostCopyWith(
           _$_ProductPost value, $Res Function(_$_ProductPost) then) =
       __$$_ProductPostCopyWithImpl<$Res>;
@@ -138,7 +145,8 @@ abstract class _$$_ProductPostCopyWith<$Res>
   $Res call(
       {User user,
       Product product,
-      String content,
+      String title,
+      String description,
       Address address,
       int chatCount,
       int likeCount,
@@ -154,7 +162,7 @@ abstract class _$$_ProductPostCopyWith<$Res>
 
 /// @nodoc
 class __$$_ProductPostCopyWithImpl<$Res>
-    extends _$ProductPostCopyWithImpl<$Res, _$_ProductPost>
+    extends _$SimpleProductPostCopyWithImpl<$Res, _$_ProductPost>
     implements _$$_ProductPostCopyWith<$Res> {
   __$$_ProductPostCopyWithImpl(
       _$_ProductPost _value, $Res Function(_$_ProductPost) _then)
@@ -165,7 +173,8 @@ class __$$_ProductPostCopyWithImpl<$Res>
   $Res call({
     Object? user = null,
     Object? product = null,
-    Object? content = null,
+    Object? title = null,
+    Object? description = null,
     Object? address = null,
     Object? chatCount = null,
     Object? likeCount = null,
@@ -180,9 +189,13 @@ class __$$_ProductPostCopyWithImpl<$Res>
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as Product,
-      null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       null == address
           ? _value.address
@@ -207,15 +220,17 @@ class __$$_ProductPostCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ProductPost implements _ProductPost {
-  const _$_ProductPost(this.user, this.product, this.content, this.address,
-      this.chatCount, this.likeCount, this.createdTime);
+  const _$_ProductPost(this.user, this.product, this.title, this.description,
+      this.address, this.chatCount, this.likeCount, this.createdTime);
 
   @override
   final User user;
   @override
   final Product product;
   @override
-  final String content;
+  final String title;
+  @override
+  final String description;
   @override
   final Address address;
   @override
@@ -227,7 +242,7 @@ class _$_ProductPost implements _ProductPost {
 
   @override
   String toString() {
-    return 'ProductPost(user: $user, product: $product, content: $content, address: $address, chatCount: $chatCount, likeCount: $likeCount, createdTime: $createdTime)';
+    return 'SimpleProductPost(user: $user, product: $product, title: $title, description: $description, address: $address, chatCount: $chatCount, likeCount: $likeCount, createdTime: $createdTime)';
   }
 
   @override
@@ -237,7 +252,9 @@ class _$_ProductPost implements _ProductPost {
             other is _$_ProductPost &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.product, product) || other.product == product) &&
-            (identical(other.content, content) || other.content == content) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.chatCount, chatCount) ||
                 other.chatCount == chatCount) &&
@@ -248,8 +265,8 @@ class _$_ProductPost implements _ProductPost {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user, product, content, address,
-      chatCount, likeCount, createdTime);
+  int get hashCode => Object.hash(runtimeType, user, product, title,
+      description, address, chatCount, likeCount, createdTime);
 
   @JsonKey(ignore: true)
   @override
@@ -258,11 +275,12 @@ class _$_ProductPost implements _ProductPost {
       __$$_ProductPostCopyWithImpl<_$_ProductPost>(this, _$identity);
 }
 
-abstract class _ProductPost implements ProductPost {
+abstract class _ProductPost implements SimpleProductPost {
   const factory _ProductPost(
       final User user,
       final Product product,
-      final String content,
+      final String title,
+      final String description,
       final Address address,
       final int chatCount,
       final int likeCount,
@@ -273,7 +291,9 @@ abstract class _ProductPost implements ProductPost {
   @override
   Product get product;
   @override
-  String get content;
+  String get title;
+  @override
+  String get description;
   @override
   Address get address;
   @override
