@@ -1,4 +1,7 @@
+import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/common/common.dart';
+import 'package:fast_app_base/common/widget/animated_arrow_up_down.dart';
+import 'package:fast_app_base/common/widget/w_arrow.dart';
 import 'package:fast_app_base/data/post_dummy.dart';
 import 'package:fast_app_base/screen/main/fab/w_floating_daangn_button.riverpod.dart';
 import 'package:fast_app_base/screen/main/tab/home/w_product_post_item.dart';
@@ -15,6 +18,7 @@ class HomeFragment extends ConsumerStatefulWidget {
 class _HomeFragmentState extends ConsumerState<HomeFragment> {
   final scrollController = ScrollController();
   String title = "상일동";
+  bool isSelected = false;
 
   @override
   void initState() {
@@ -37,18 +41,39 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
       children: [
         AppBar(
           title: PopupMenuButton<String>(
-            onSelected: (value){
+            position: PopupMenuPosition.under,
+            onOpened: (){
               setState(() {
+                isSelected = true;
+              });
+            },
+            onCanceled: (){
+              setState(() {
+                isSelected = false;
+              });
+            },
+            onSelected: (value) {
+              setState(() {
+                isSelected = false;
                 title = value;
               });
             },
             itemBuilder: (BuildContext context) => ["천호동", "잠실", "역삼동"]
                 .map((e) => PopupMenuItem(
                       value: e,
-                      child: Text(e),
+                      child: Text(e, style: TextStyle(fontSize: 20)),
                     ))
                 .toList(),
-            child: Text(title),
+            child: SizedBox(
+                width: 100,
+                child: Row(
+                  children: [
+                    Text(
+                      title,
+                    ),
+                    AnimatedArrowUpDown(isSelected),
+                  ],
+                )),
           ),
         ),
         Expanded(
