@@ -19,6 +19,7 @@ mixin _$User {
   String get nickName => throw _privateConstructorUsedError;
   double get temperature => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
+  String get profileUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -29,7 +30,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String nickName, double temperature, int id});
+  $Res call({String nickName, double temperature, int id, String profileUrl});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? nickName = null,
     Object? temperature = null,
     Object? id = null,
+    Object? profileUrl = null,
   }) {
     return _then(_value.copyWith(
       nickName: null == nickName
@@ -62,6 +64,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      profileUrl: null == profileUrl
+          ? _value.profileUrl
+          : profileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -72,7 +78,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String nickName, double temperature, int id});
+  $Res call({String nickName, double temperature, int id, String profileUrl});
 }
 
 /// @nodoc
@@ -87,20 +93,25 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? nickName = null,
     Object? temperature = null,
     Object? id = null,
+    Object? profileUrl = null,
   }) {
     return _then(_$_User(
-      null == nickName
+      nickName: null == nickName
           ? _value.nickName
           : nickName // ignore: cast_nullable_to_non_nullable
               as String,
-      null == temperature
+      temperature: null == temperature
           ? _value.temperature
           : temperature // ignore: cast_nullable_to_non_nullable
               as double,
-      null == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      profileUrl: null == profileUrl
+          ? _value.profileUrl
+          : profileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -108,7 +119,11 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 /// @nodoc
 
 class _$_User implements _User {
-  const _$_User(this.nickName, this.temperature, this.id);
+  const _$_User(
+      {required this.nickName,
+      required this.temperature,
+      required this.id,
+      required this.profileUrl});
 
   @override
   final String nickName;
@@ -116,10 +131,12 @@ class _$_User implements _User {
   final double temperature;
   @override
   final int id;
+  @override
+  final String profileUrl;
 
   @override
   String toString() {
-    return 'User(nickName: $nickName, temperature: $temperature, id: $id)';
+    return 'User(nickName: $nickName, temperature: $temperature, id: $id, profileUrl: $profileUrl)';
   }
 
   @override
@@ -131,11 +148,14 @@ class _$_User implements _User {
                 other.nickName == nickName) &&
             (identical(other.temperature, temperature) ||
                 other.temperature == temperature) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.profileUrl, profileUrl) ||
+                other.profileUrl == profileUrl));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, nickName, temperature, id);
+  int get hashCode =>
+      Object.hash(runtimeType, nickName, temperature, id, profileUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -146,7 +166,10 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      final String nickName, final double temperature, final int id) = _$_User;
+      {required final String nickName,
+      required final double temperature,
+      required final int id,
+      required final String profileUrl}) = _$_User;
 
   @override
   String get nickName;
@@ -154,6 +177,8 @@ abstract class _User implements User {
   double get temperature;
   @override
   int get id;
+  @override
+  String get profileUrl;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

@@ -4,10 +4,10 @@ part 'vo_user.freezed.dart';
 
 @freezed
 class User with _$User {
-
-  const factory User(
-      final String nickName,
-      final double temperature,
-      final int id,
-      ) = _User;
+  const factory User({
+    required final String nickName,
+    required final double temperature,
+    required final int id,
+    required String profileUrl,
+  }) = _User;
 }
