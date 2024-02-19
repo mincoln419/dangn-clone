@@ -10,6 +10,7 @@ DateTime generateCreateDtm() {
 }
 
 final SimpleProductPost post1 = SimpleProductPost(
+  1,
   user1,
   product1,
   "너무너무 좋아요",
@@ -21,6 +22,7 @@ final SimpleProductPost post1 = SimpleProductPost(
 );
 
 final SimpleProductPost post2 = SimpleProductPost(
+  2,
   user2,
   product2,
   "너무 좋아요",
@@ -32,6 +34,7 @@ final SimpleProductPost post2 = SimpleProductPost(
 );
 
 final SimpleProductPost post3 = SimpleProductPost(
+  3,
   user3,
   product3,
   "춘식이 좋아요",
@@ -43,6 +46,7 @@ final SimpleProductPost post3 = SimpleProductPost(
 );
 
 final SimpleProductPost post4 = SimpleProductPost(
+  4,
   user3,
   product4,
   "메롱이다 뫄",
