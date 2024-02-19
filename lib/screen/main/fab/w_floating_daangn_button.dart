@@ -2,6 +2,7 @@ import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/screen/main/fab/w_floating_daangn_button.riverpod.dart';
 import 'package:fast_app_base/screen/main/s_main.dart';
+import 'package:fast_app_base/screen/main/tab/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,6 +11,7 @@ import '../../../common/widget/animated_width_collapse.dart';
 class FloatingDaangnButton extends ConsumerWidget {
   FloatingDaangnButton({super.key});
 
+  static const height = 100.0;
   final duration = 300.ms;
 
   @override
@@ -58,7 +60,20 @@ class FloatingDaangnButton extends ConsumerWidget {
                 ),
                 Tap(
                   onTap: () {
-                    ref.read(floatingButtonStateProvider.notifier).onTapButton();
+                    // final currentTab = ref.read(currentTabProvider);
+                    // switch(currentTab){
+                    //   case TabItem.home:
+                    //     // TODO: Handle this case.
+                    //   case TabItem.localLife:
+                    //     // TODO: Handle this case.
+                    //   case TabItem.nearMe:
+                    //     // TODO: Handle this case.
+                    //   case TabItem.chat:
+                    //     // TODO: Handle this case.
+                    //   case TabItem.my:
+                    //     // TODO: Handle this case.
+                    // }
+                    ref.read(floatingButtonStateProvider.notifier).toggleMenu();
                   },
                   child: AnimatedContainer(
                     duration: duration,
