@@ -1,4 +1,6 @@
 import 'package:fast_app_base/common/common.dart';
+import 'package:fast_app_base/common/util/app_keyboard_util.dart';
+import 'package:fast_app_base/common/widget/round_button_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/widget/w_round_button.dart';
@@ -16,6 +18,27 @@ class _WriteScreenState extends State<WriteScreen> {
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
 
+  bool isLoading = false;
+
+  bool get isValid =>
+      isNotBlank(titleController.text) &&
+      isNotBlank(priceController.text) &&
+      isNotBlank(descriptionController.text);
+
+  @override
+  void initState() {
+    titleController.addListener(() {
+      setState(() {});
+    });
+    priceController.addListener(() {
+      setState(() {});
+    });
+    descriptionController.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +52,7 @@ class _WriteScreenState extends State<WriteScreen> {
         ],
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 150),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,17 +69,36 @@ class _WriteScreenState extends State<WriteScreen> {
           h: 15,
         ),
       ),
-      bottomSheet: RoundButton(
-        text: '작성 완료',
-        isFullWidth: true,
-        borderRadius: 6,
-        onTap: () {},
-      ),
+      bottomSheet: MediaQuery.of(context).viewInsets.vertical > 0
+          ? null
+          : RoundButton(
+              text: isLoading ? '저장중' : '작성 완료',
+              isFullWidth: true,
+              borderRadius: 6,
+              isEnabled: isValid,
+              rightWidget: isLoading
+                  ? const SizedBox(
+                      width: 15,
+                      height: 15,
+                      child: CircularProgressIndicator(),
+                    ).pOnly(right: 80)
+                  : null,
+              onTap: () {
+                final title = titleController.text;
+                final price = int.parse(priceController.text);
+                final desc = descriptionController.text;
+                setState(() {
+                  isLoading = true;
+                });
+                //직접추가
+                //완성된 데이터 추가,
+              },
+            ),
     );
   }
 }
 
-class _DescriptionEditor extends StatelessWidget {
+class _DescriptionEditor extends StatelessWidget  {
   final TextEditingController controller;
 
   const _DescriptionEditor(
@@ -65,8 +108,30 @@ class _DescriptionEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        height30,
+        '자세한설명'.text.bold.make(),
+        height5,
+        TextField(
+          controller: controller,
+          maxLines: 7,
+          decoration: const InputDecoration(
+            hintText: '에 올릴 게시글 내용을 작성해주세요.',
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+              color: Colors.orange,
+            )),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
+              color: Colors.grey,
+            )),
+          ),
+        ),
+      ],
+    );
+    ;
   }
 }
 
@@ -84,6 +149,7 @@ class _PriceEditor extends StatefulWidget {
 
 class _PriceEditorState extends State<_PriceEditor> {
   bool isDonateMode = false;
+  final priceNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -95,27 +161,40 @@ class _PriceEditorState extends State<_PriceEditor> {
           children: [
             RoundButton(
                 text: '판매하기',
+                theme: isDonateMode
+                    ? RoundButtonTheme.whiteWithBlueBorder
+                    : RoundButtonTheme.blue,
                 onTap: () {
-                  setState() {
+                  widget.controller.clear();
+                  setState(() {
                     isDonateMode = false;
-                  }
+                  });
 
-                  ;
+                  delay(() {
+                    AppKeyboardUtil.show(context, priceNode);
+                  });
                 }),
             RoundButton(
               text: '나눔하기',
+              theme: !isDonateMode
+                  ? RoundButtonTheme.whiteWithBlueBorder
+                  : RoundButtonTheme.blue,
               onTap: () {
+                widget.controller.text = "0";
+                AppKeyboardUtil.hide(context);
                 setState(() {
                   isDonateMode = true;
                 });
-
               },
             ),
           ],
         ),
         height5,
         TextField(
+          focusNode: priceNode,
           controller: widget.controller,
+          keyboardType: TextInputType.number,
+          enabled: !isDonateMode,
           decoration: const InputDecoration(
             hintText: '￦ 가격을 입력해주세요.',
             focusedBorder: OutlineInputBorder(
