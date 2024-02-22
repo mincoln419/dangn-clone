@@ -26,14 +26,17 @@ class PostDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productPost = ref.watch(productPostProvider(id));
+    final productPost = ref.watch(productPostProvider(id - 1));
 
     return productPost.when(
       data: (data) {
         //return CachedNetworkImage(imageUrl: data.simpleProductPost.product.images[0]);
-        return _PostDetail(data.simpleProductPost, productPost: data);
+        return _PostDetail(simpleProductPost ?? data.simpleProductPost, productPost: data);
       },
-      error: (err, stack) => "에러발생".text.make(),
+      error: (err, stack) {
+        print(err);
+        return "에러발생".text.make();
+      },
       loading: () => simpleProductPost != null
           ? _PostDetail(simpleProductPost!)
           : Center(

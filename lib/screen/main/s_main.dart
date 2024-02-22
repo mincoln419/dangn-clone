@@ -100,27 +100,31 @@ class MainScreenState extends ConsumerState<MainScreen>
   }
 
   Widget _buildBottomNavigationBar(BuildContext context) {
-    return Container(
-      height: bottomNavigationBarHeight,
-      decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 10),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(bottomNavigationBarBorderRadius),
-          topRight: Radius.circular(bottomNavigationBarBorderRadius),
+    return SizedBox(
+      height: 85,
+      child: Container(
+        height: bottomNavigationBarHeight,
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 10),
+          ],
         ),
-        child: BottomNavigationBar(
-          items: navigationBarItems(context),
-          currentIndex: _currentIndex,
-          selectedItemColor: context.appColors.text,
-          unselectedItemColor: context.appColors.iconButtonInactivate,
-          onTap: _handleOnTapNavigationBarItem,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(bottomNavigationBarBorderRadius),
+            topRight: Radius.circular(bottomNavigationBarBorderRadius),
+          ),
+          child: BottomNavigationBar(
+
+            items: navigationBarItems(context),
+            currentIndex: _currentIndex,
+            selectedItemColor: context.appColors.text,
+            unselectedItemColor: context.appColors.iconButtonInactivate,
+            onTap: _handleOnTapNavigationBarItem,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
+          ),
         ),
       ),
     );

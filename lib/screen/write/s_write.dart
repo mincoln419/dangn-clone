@@ -1,19 +1,27 @@
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/util/app_keyboard_util.dart';
 import 'package:fast_app_base/common/widget/round_button_theme.dart';
+import 'package:fast_app_base/data/user_dummy.dart';
+import 'package:fast_app_base/entity/post/vo_simple_product_post.dart';
+import 'package:fast_app_base/entity/product/product_status.dart';
+import 'package:fast_app_base/entity/product/vo_product.dart';
+import 'package:fast_app_base/entity/user/vo_address.dart';
+import 'package:fast_app_base/screen/main/tab/home/provider/post_provider.dart';
+import 'package:fast_app_base/screen/post_detail/s_post_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/widget/w_round_button.dart';
 
-class WriteScreen extends StatefulWidget {
+class WriteScreen extends ConsumerStatefulWidget {
   const WriteScreen({super.key});
 
   @override
-  State<WriteScreen> createState() => _WriteScreenState();
+  ConsumerState<WriteScreen> createState() => _WriteScreenState();
 }
 
-class _WriteScreenState extends State<WriteScreen> {
-  final List<String> imageList = [];
+class _WriteScreenState extends ConsumerState<WriteScreen> {
+  final List<String> imageList = [picSum(442)];
   final titleController = TextEditingController();
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -91,6 +99,17 @@ class _WriteScreenState extends State<WriteScreen> {
                   isLoading = true;
                 });
                 //직접추가
+                final list = ref.read(postProvider);
+                final simpleProductPost = SimpleProductPost(6, user3, Product(
+                  user3,
+                  title,
+                  price,
+                  ProductStatus.normal,
+                  imageList,
+                ), title, desc, Address('서울시 관악구 신림동', '신림동'), 0, 0, DateTime.now());
+                ref.read(postProvider.notifier).state = List.of(list)..add(simpleProductPost);
+                Nav.pop(context);
+                Nav.push(PostDetailScreen(simpleProductPost.id, simpleProductPost: simpleProductPost,));
                 //완성된 데이터 추가,
               },
             ),
