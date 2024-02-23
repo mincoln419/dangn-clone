@@ -34,8 +34,10 @@ class _SelectImageSourceDialogState extends DialogState<SelectImageSourceDialog>
                     const Icon(Icons.camera_alt_outlined),
                     '카메라'.text.make(),
                   ],
-                ).p(15),
+                ).p(30),
               ),
+              const Line().pSymmetric(h: 20),
+
               Tap(
                 onTap: (){
                   widget.hide(ImageSource.gallery);
@@ -43,10 +45,10 @@ class _SelectImageSourceDialogState extends DialogState<SelectImageSourceDialog>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.camera_alt_outlined),
-                    '카메라'.text.make(),
+                    const Icon(Icons.photo_album_outlined),
+                    '갤러리'.text.make(),
                   ],
-                ).p(15),
+                ).p(30),
               ),
             ],
           ),
