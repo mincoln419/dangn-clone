@@ -3,6 +3,7 @@ import 'package:fast_app_base/screen/main/tab/tab_item.dart';
 import 'package:fast_app_base/screen/main/tab/tab_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../common/common.dart';
 import 'fab/w_floating_daangn_button.dart';
@@ -11,7 +12,11 @@ import 'w_menu_drawer.dart';
 final currentTabProvider = StateProvider((ref) => TabItem.home);
 
 class MainScreen extends ConsumerStatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({
+    super.key, required this.firstTab,
+  });
+
+  final TabItem firstTab;
 
   @override
   ConsumerState<MainScreen> createState() => MainScreenState();
@@ -32,13 +37,22 @@ class MainScreenState extends ConsumerState<MainScreen>
   bool get extendBody => true;
 
   static double get bottomNavigationBarBorderRadius => 30.0;
-  static const bottomNavigationBarHeight = 60.0;
+  static const bottomNavigationBarHeight = 100.0;
 
   bool isFabExpanded = false;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant MainScreen oldWidget) {
+    delay(() {
+      ref.read(currentTabProvider.notifier).state = oldWidget.firstTab;
+    });
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -53,9 +67,8 @@ class MainScreenState extends ConsumerState<MainScreen>
               drawer: const MenuDrawer(),
               body: Container(
                 padding: EdgeInsets.only(
-                    bottom: extendBody
-                        ? 60 - bottomNavigationBarBorderRadius
-                        : 0),
+                    bottom:
+                        extendBody ? 60 - bottomNavigationBarBorderRadius : 0),
                 child: SafeArea(
                   bottom: !extendBody,
                   child: pages,
@@ -115,7 +128,6 @@ class MainScreenState extends ConsumerState<MainScreen>
             topRight: Radius.circular(bottomNavigationBarBorderRadius),
           ),
           child: BottomNavigationBar(
-
             items: navigationBarItems(context),
             currentIndex: _currentIndex,
             selectedItemColor: context.appColors.text,
@@ -144,7 +156,7 @@ class MainScreenState extends ConsumerState<MainScreen>
   }
 
   void _changeTab(int index) {
-    ref.read(currentTabProvider.notifier).state = tabs[index];
+     context.go('/main/${tabs[index-1].name}');
   }
 
   BottomNavigationBarItem bottomItem(bool activate, IconData iconData,

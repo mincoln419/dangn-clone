@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fast_app_base/common/route/custom_router_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart';
 
@@ -11,6 +12,7 @@ void main() async {
   await AppPreferences.init();
 
   setLocaleMessages('ko', KoMessages());
+  CustomNavigationHelper.instance;
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ko')],
       fallbackLocale: const Locale('en'),

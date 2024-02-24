@@ -39,7 +39,7 @@ class PostDetailScreen extends ConsumerWidget {
       },
       loading: () => simpleProductPost != null
           ? _PostDetail(simpleProductPost!)
-          : Center(
+          : const Center(
               child: CircularProgressIndicator(),
             ),
     );
@@ -60,7 +60,7 @@ class _PostDetail extends HookWidget {
       child: Stack(
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.only(bottom: bottomMenuHeight),
+            padding: const EdgeInsets.only(bottom: bottomMenuHeight),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -99,11 +99,11 @@ class PostDetailBottomMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: _PostDetail.bottomMenuHeight,
         child: Column(
           children: [
-            Line(),
+            const Line(),
             Expanded(
               child: Row(
                 children: [
@@ -162,7 +162,9 @@ class _ImagePager extends StatelessWidget {
             controller: pageController,
             children: simpleProductPost.product.images
                 .map((url) =>
-                    CachedNetworkImage(imageUrl: url, fit: BoxFit.fill))
+                    Hero(
+                        tag: '${simpleProductPost.id}_$url',
+                        child: CachedNetworkImage(imageUrl: url, fit: BoxFit.fill)))
                 .toList(),
           ),
           Align(
@@ -199,7 +201,7 @@ class _AppBar extends StatelessWidget {
           onPressed: () {
             Nav.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
             color: Colors.white,
           ),
