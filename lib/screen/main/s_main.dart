@@ -27,7 +27,7 @@ class MainScreenState extends ConsumerState<MainScreen>
   TabItem get _currentTab => ref.read(currentTabProvider);
   final tabs = TabItem.values;
   late final List<GlobalKey<NavigatorState>> navigatorKeys =
-      TabItem.values.map((e) => GlobalKey<NavigatorState>()).toList();
+  TabItem.values.map((e) => GlobalKey<NavigatorState>()).toList();
 
   int get _currentIndex => tabs.indexOf(_currentTab);
 
@@ -48,6 +48,8 @@ class MainScreenState extends ConsumerState<MainScreen>
 
   @override
   void didUpdateWidget(covariant MainScreen oldWidget) {
+
+    
     delay(() {
       ref.read(currentTabProvider.notifier).state = oldWidget.firstTab;
     });
@@ -68,7 +70,7 @@ class MainScreenState extends ConsumerState<MainScreen>
               body: Container(
                 padding: EdgeInsets.only(
                     bottom:
-                        extendBody ? 60 - bottomNavigationBarBorderRadius : 0),
+                    extendBody ? 60 - bottomNavigationBarBorderRadius : 0),
                 child: SafeArea(
                   bottom: !extendBody,
                   child: pages,
@@ -91,17 +93,17 @@ class MainScreenState extends ConsumerState<MainScreen>
       index: _currentIndex,
       children: tabs
           .mapIndexed((tab, index) => Offstage(
-                offstage: _currentTab != tab,
-                child: TabNavigator(
-                  navigatorKey: navigatorKeys[index],
-                  tabItem: tab,
-                ),
-              ))
+        offstage: _currentTab != tab,
+        child: TabNavigator(
+          navigatorKey: navigatorKeys[index],
+          tabItem: tab,
+        ),
+      ))
           .toList());
 
   Future<bool> _handleBackPressed() async {
     final isFirstRouteInCurrentTab =
-        (await _currentTabNavigationKey.currentState?.maybePop() == false);
+    (await _currentTabNavigationKey.currentState?.maybePop() == false);
     if (isFirstRouteInCurrentTab) {
       if (_currentTab != TabItem.home) {
         _changeTab(tabs.indexOf(TabItem.home));
@@ -148,15 +150,15 @@ class MainScreenState extends ConsumerState<MainScreen>
     return tabs
         .mapIndexed(
           (tab, index) => tab.toNavigationBarItem(
-            context,
-            isActivated: currentIndex == index,
-          ),
-        )
+        context,
+        isActivated: currentIndex == index,
+      ),
+    )
         .toList();
   }
 
   void _changeTab(int index) {
-     context.go('/main/${tabs[index-1].name}');
+    ref.read(currentTabProvider.notifier).state = tabs[index];
   }
 
   BottomNavigationBarItem bottomItem(bool activate, IconData iconData,
