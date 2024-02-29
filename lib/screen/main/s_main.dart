@@ -49,7 +49,7 @@ class MainScreenState extends ConsumerState<MainScreen>
   @override
   void didUpdateWidget(covariant MainScreen oldWidget) {
 
-    
+
     delay(() {
       ref.read(currentTabProvider.notifier).state = oldWidget.firstTab;
     });
