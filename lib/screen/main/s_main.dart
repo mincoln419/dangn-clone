@@ -3,6 +3,7 @@ import 'package:fast_app_base/screen/main/tab/tab_item.dart';
 import 'package:fast_app_base/screen/main/tab/tab_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../common/common.dart';
 import 'fab/w_floating_daangn_button.dart';
@@ -11,7 +12,11 @@ import 'w_menu_drawer.dart';
 final currentTabProvider = StateProvider((ref) => TabItem.home);
 
 class MainScreen extends ConsumerStatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({
+    super.key, required this.firstTab,
+  });
+
+  final TabItem firstTab;
 
   @override
   ConsumerState<MainScreen> createState() => MainScreenState();
@@ -22,7 +27,7 @@ class MainScreenState extends ConsumerState<MainScreen>
   TabItem get _currentTab => ref.read(currentTabProvider);
   final tabs = TabItem.values;
   late final List<GlobalKey<NavigatorState>> navigatorKeys =
-      TabItem.values.map((e) => GlobalKey<NavigatorState>()).toList();
+  TabItem.values.map((e) => GlobalKey<NavigatorState>()).toList();
 
   int get _currentIndex => tabs.indexOf(_currentTab);
 
@@ -32,13 +37,24 @@ class MainScreenState extends ConsumerState<MainScreen>
   bool get extendBody => true;
 
   static double get bottomNavigationBarBorderRadius => 30.0;
-  static const bottomNavigationBarHeight = 60.0;
+  static const bottomNavigationBarHeight = 100.0;
 
   bool isFabExpanded = false;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant MainScreen oldWidget) {
+
+
+    delay(() {
+      ref.read(currentTabProvider.notifier).state = oldWidget.firstTab;
+    });
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -53,9 +69,8 @@ class MainScreenState extends ConsumerState<MainScreen>
               drawer: const MenuDrawer(),
               body: Container(
                 padding: EdgeInsets.only(
-                    bottom: extendBody
-                        ? 60 - bottomNavigationBarBorderRadius
-                        : 0),
+                    bottom:
+                    extendBody ? 60 - bottomNavigationBarBorderRadius : 0),
                 child: SafeArea(
                   bottom: !extendBody,
                   child: pages,
@@ -78,17 +93,17 @@ class MainScreenState extends ConsumerState<MainScreen>
       index: _currentIndex,
       children: tabs
           .mapIndexed((tab, index) => Offstage(
-                offstage: _currentTab != tab,
-                child: TabNavigator(
-                  navigatorKey: navigatorKeys[index],
-                  tabItem: tab,
-                ),
-              ))
+        offstage: _currentTab != tab,
+        child: TabNavigator(
+          navigatorKey: navigatorKeys[index],
+          tabItem: tab,
+        ),
+      ))
           .toList());
 
   Future<bool> _handleBackPressed() async {
     final isFirstRouteInCurrentTab =
-        (await _currentTabNavigationKey.currentState?.maybePop() == false);
+    (await _currentTabNavigationKey.currentState?.maybePop() == false);
     if (isFirstRouteInCurrentTab) {
       if (_currentTab != TabItem.home) {
         _changeTab(tabs.indexOf(TabItem.home));
@@ -100,27 +115,30 @@ class MainScreenState extends ConsumerState<MainScreen>
   }
 
   Widget _buildBottomNavigationBar(BuildContext context) {
-    return Container(
-      height: bottomNavigationBarHeight,
-      decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 10),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(bottomNavigationBarBorderRadius),
-          topRight: Radius.circular(bottomNavigationBarBorderRadius),
+    return SizedBox(
+      height: 85,
+      child: Container(
+        height: bottomNavigationBarHeight,
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 10),
+          ],
         ),
-        child: BottomNavigationBar(
-          items: navigationBarItems(context),
-          currentIndex: _currentIndex,
-          selectedItemColor: context.appColors.text,
-          unselectedItemColor: context.appColors.iconButtonInactivate,
-          onTap: _handleOnTapNavigationBarItem,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(bottomNavigationBarBorderRadius),
+            topRight: Radius.circular(bottomNavigationBarBorderRadius),
+          ),
+          child: BottomNavigationBar(
+            items: navigationBarItems(context),
+            currentIndex: _currentIndex,
+            selectedItemColor: context.appColors.text,
+            unselectedItemColor: context.appColors.iconButtonInactivate,
+            onTap: _handleOnTapNavigationBarItem,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
+          ),
         ),
       ),
     );
@@ -132,10 +150,10 @@ class MainScreenState extends ConsumerState<MainScreen>
     return tabs
         .mapIndexed(
           (tab, index) => tab.toNavigationBarItem(
-            context,
-            isActivated: currentIndex == index,
-          ),
-        )
+        context,
+        isActivated: currentIndex == index,
+      ),
+    )
         .toList();
   }
 

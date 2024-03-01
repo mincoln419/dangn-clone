@@ -14,7 +14,7 @@ class DangnApi {
   }
 
   static Future<ProductPost> getPost(int id) async {
-    await sleepAsync(1000.ms);
+    await sleepAsync(100.ms);
     return ProductPost(
       simpleProductPost: postList[id],
       content: "깨끗하게 쓰던 물거이에요 잘 쓰면 좋겠다. 그렇다",

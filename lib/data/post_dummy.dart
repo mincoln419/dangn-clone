@@ -62,6 +62,4 @@ final postList = [
   post2,
   post3,
   post4,
-  post1,
-  post2,
 ];
