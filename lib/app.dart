@@ -1,5 +1,6 @@
 import 'package:fast_app_base/auth.dart';
 import 'package:fast_app_base/common/common.dart';
+import 'package:fast_app_base/common/fcm/fcm_manager.dart';
 import 'package:fast_app_base/common/route/fade_trasition_page.dart';
 import 'package:fast_app_base/common/theme/custom_theme_app.dart';
 import 'package:fast_app_base/common/widget/w_round_button.dart';
@@ -18,6 +19,7 @@ class App extends ConsumerStatefulWidget {
   static bool isForeground = true;
   static final GlobalKey<ScaffoldMessengerState> scaffoldNavigationKey =
       GlobalKey();
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   const App({super.key});
 
@@ -34,6 +36,8 @@ class AppState extends ConsumerState<App> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    FcmManager.requestPermission();
+    FcmManager.initialize();
     WidgetsBinding.instance.addObserver(this);
   }
 

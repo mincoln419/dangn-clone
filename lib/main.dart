@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fast_app_base/common/route/custom_router_helper.dart';
+import 'package:fast_app_base/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart';
@@ -13,7 +14,7 @@ void main() async {
   await AppPreferences.init();
 
   await Firebase.initializeApp(
-    options: .currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   setLocaleMessages('ko', KoMessages());
